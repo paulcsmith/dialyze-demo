@@ -9,8 +9,17 @@ defmodule DialyzeDemo.Mixfile do
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     dialyzer: dialyzer_settings,
      aliases: aliases,
      deps: deps]
+  end
+
+  defp dialyzer_settings do
+    [
+      plt_add_deps: true,
+      plt_file: ".dialyzer.plt",
+      flags: ["-Wunderspecs", "-Wno_undefined_callbacks"]
+    ]
   end
 
   # Configuration for the OTP application.
@@ -35,6 +44,7 @@ defmodule DialyzeDemo.Mixfile do
      {:phoenix_ecto, "~> 2.0"},
      {:phoenix_html, "~> 2.4"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:dialyxir, "~> 0.3", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"}]
   end
